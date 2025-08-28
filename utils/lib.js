@@ -14,9 +14,7 @@ const initializeLabelerList = async () => {
     await redis.del(DP_LABELER_LIST);
     const pipeline = redis.pipeline();
     const datapoints = await Datapoint.find({
-      processingStatus: "live-label-mcq",
-      labeledBy: "labeler",
-      isFreezed: false,
+      processingStatus: "created",
     }).sort({ createdBy: 1 });
     if (!datapoints.length) {
       console.error("Couldn't find datapoints for labelers list!");
